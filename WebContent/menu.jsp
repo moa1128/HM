@@ -25,6 +25,15 @@
 				<li class="nav-item">
 					<a class="nav-link" href="#">STYLE</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="javascript:void(0)" style="color: #6c757d">|</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="./addProduct.jsp">ADD</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="./removeProduct.jsp">REMOVE</a>
+				</li>
 			</ul>
 		</div>
 	</div>

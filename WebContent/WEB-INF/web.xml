@@ -10,6 +10,7 @@
 			<web-resource-name>HansungMart</web-resource-name>
 			<description></description>
 			<url-pattern>/addProduct.jsp</url-pattern>
+			<url-pattern>/removeProduct.jsp</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<description>권한 관리자명</description>
@@ -23,6 +24,10 @@
 			<form-error-page>/login_failed.jsp</form-error-page>
 		</form-login-config>
 	</login-config>
+	<!-- <error-page>
+		<error-code>400</error-code>
+		<location>/exceptionNoPage.jsp</location>
+	</error-page> -->
 	<error-page>
 		<error-code>404</error-code>
 		<location>/exceptionNoPage.jsp</location>

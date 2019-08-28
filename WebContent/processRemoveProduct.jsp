@@ -16,43 +16,13 @@
 	MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
 	
 	String productId = multi.getParameter("productId");
-	String name = multi.getParameter("name");
-	String unitPrice = multi.getParameter("unitPrice");
-	String description = multi.getParameter("description");
-	String manufacturer = multi.getParameter("manufacturer");
-	String category = multi.getParameter("category");
-	String unitsInStock = multi.getParameter("unitsInStock");
-	
-	Integer price;
-	
-	if(unitPrice.isEmpty())
-		price = 0;
-	else
-		price = Integer.valueOf(unitPrice);
-	
-	long stock;
-	
-	if(unitsInStock.isEmpty())
-		stock = 0;
-	else
-		stock = Long.valueOf(unitsInStock);
-	
-	Enumeration files = multi.getFileNames();
-	String fname = (String) files.nextElement();
-	String fileName = multi.getFilesystemName(fname);
 	
 	ProductRepository dao = ProductRepository.getInstance();
 	
-	Product newProduct = new Product();
-	newProduct.setProductId(productId);
-	newProduct.setPname(name);
-	newProduct.setUnitPrice(price);
-	newProduct.setDescription(description);
-	newProduct.setManufacturer(manufacturer);
-	newProduct.setUnitsInStock(stock);
-	newProduct.setFilename(fileName);
+	Product oldProduct = new Product();
+	oldProduct = dao.getProductById(productId);
 	
-	dao.addProduct(newProduct);
+	dao.removeProduct(oldProduct);
 	
 	response.sendRedirect("products.jsp");
 %>

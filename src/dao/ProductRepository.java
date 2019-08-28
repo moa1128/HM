@@ -9,9 +9,9 @@ public class ProductRepository {
 	private static ProductRepository instance = new ProductRepository();
 	
 	public ProductRepository() {
-		//상품 만들거 여기다 넣기 딩니바봉
+		//상품 만들거 여기다 넣기
 		Product phone = new Product("P1234", "iPhone XS", 1500000);
-		phone.setDescription("아주조흔 핸트폰 예에에에에에 딩니폰 기종이다");
+		phone.setDescription("애플의 iOS 스마트폰 시리즈인 아이폰 시리즈의 2018년도형 모델");
 		phone.setCategory("LIVING");
 		phone.setManufacturer("Apple");
 		phone.setUnitsInStock(1000);
@@ -80,5 +80,14 @@ public class ProductRepository {
 	}
 	public void addProduct(Product product) {
 		listOfProducts.add(product);
+	}
+	public void removeProduct(Product product) {
+		/*
+		 * for(int i = 0; i <listOfProducts.size(); i++) { Product pd =
+		 * listOfProducts.get(i); if(pd != null && pd.getProductId() != null &&
+		 * pd.getProductId().equals(product.getProductId())) {
+		 * listOfProducts.remove(product); break; } }
+		 */
+		listOfProducts.remove(product);
 	}
 }

@@ -5,7 +5,7 @@
 <head>
 <title>Hansung Mart</title>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script type="text/javascript" src="./resources/js/validation.js"></script>
+<script type="text/javascript" src="./resources/js/validation.js?ver=1"></script>
 </head>
 <body>
 	<fmt:setLocale value='<%=request.getParameter("language") %>'/>
@@ -21,7 +21,7 @@
 			<a href="?language=ko" >Korean</a>|<a href="?language=en" >English</a>
 			<a href="logout.jsp" class="btn btn-sm btn-success pull-right">logout</a>
 		</div>
-		<form name="newProduct" action="./processAddProject.jsp" class="form-horizontal" method="post" enctype="multipart/form-data">
+		<form name="newProduct" action="./processAddProduct.jsp" class="form-horizontal" method="post" enctype="multipart/form-data">
 			<div class="form-group row">
 				<label class="col-sm-2"><fmt:message key="productId"/></label>
 				<div class="col-sm-3">
@@ -67,7 +67,7 @@
 			<div class="form-group row">
 				<label class="col-sm-2"><fmt:message key="productImage"/></label>
 				<div class="col-sm-5">
-					<input type="file" name="productImage" class="form-control">
+					<input typ[]e="file" name="productImage" class="form-control">
 				</div>
 			</div>
 			<div class="form-group row">

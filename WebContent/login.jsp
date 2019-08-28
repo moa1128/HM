@@ -23,7 +23,7 @@
 					out.println("</div>");
 				}
 			%>
-			<form class="form-signin" action="j_security_check" method="post">
+			<form class="form-signin" action="<%= response.encodeURL("j_security_check") %>" method="post">
 				<div class="form-group">
 					<label for="inputUserName" class="sr-only">User Name</label>
 					<input type="text" class="form-control" placeholder="ID" name='j_username' required autofocus>
