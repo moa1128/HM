@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
-<%@ page import="dto.Product" %>
-<%@ page import="dao.ProductRepository" %>
+<%@ page import="java.sql.*" %>
 <%@ page errorPage="exceptionNoProductId.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -24,31 +23,60 @@
 			<h1 class="display-3">상품 정보</h1>
 		</div>
 	</div>
-	<%
-		String id = request.getParameter("id");
-		ProductRepository dao = ProductRepository.getInstance();
-		Product product = dao.getProductById(id);
-	%>
 	<div class="container">
 		<div class="row" align="center">
-		<div class="col-md-5">
-			<img src="resources/images/<%=product.getFilename()%>" style="width : 100%">
-		</div>
-			<div class="col-md-6">
-				<h3><%=product.getPname()%></h3>
-				<p><%=product.getDescription()%>
-				<p><b>상품 코드</b> : <span class="badge badge-danger">
-				<%=product.getProductId()%></span>
-				<p><b>제조사</b> : <%=product.getManufacturer()%>
-				<p><b>분류</b> : <%=product.getCategory()%>
-				<p><b>재고 수</b> : <%=product.getUnitsInStock()%>
-				<h4><%=product.getUnitPrice()%>원</h4>
-				<p><form name="addForm" action="./addCart.jsp?id=<%=product.getProductId()%>" method="post">
-					<a href="#" class="btn btn-info" onclick="addToCart()">상품 주문 &raquo;</a>
-					<a href="./cart.jsp" class="btn btn-warning">장바구니 &raquo;</a>
-					<a href="./products.jsp" class="btn btn-secondary">상품 목록 &raquo;</a>
-				</form>
+			<%@ include file="dbConn.jsp" %>s
+			<%
+				String productId = request.getParameter("id");
+				String N = request.getParameter("num");
+				int num = Integer.parseInt(N);
+				String url = null;
+				if(num == 1)
+					url = "./product_health.jsp";
+				else if(num == 2)
+					url = "./product_food.jsp";
+				else if(num == 3)
+					url = "./product_living.jsp";
+				else if(num == 4)
+					url = "./product_beauty.jsp";
+				else if(num == 5)
+					url = "./product_style.jsp";
+				else
+					url ="./product.jsp";
+			
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				
+				String sql = "select * from product where productId = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, productId);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+			%>
+			<div class="col-md-5">
+				<img src="resources/images/<%=rs.getString("filename")%>" style="width: 300px; height: 350px">
 			</div>
+				<div class="col-md-6">
+					<h3><%=rs.getString("pname")%></h3>
+					<p><%=rs.getString("description")%>
+					<p><b>상품 코드</b> : <span class="badge badge-danger">
+					<%=rs.getString("productId")%></span>
+					<p><b>제조사</b> : <%=rs.getString("manufacturer")%>
+					<p><b>분류</b> : <%=rs.getString("category")%>
+					<p><b>재고 수</b> : <%=rs.getInt("unitsInStock")%>
+					<h4><%=rs.getInt("unitPrice")%>원</h4>
+					<p><br><a href="<%=url %>" class="btn btn-secondary">상품 목록 &raquo;</a>
+				</div>
+			<%
+				}
+				if(rs != null)
+					rs.close();
+				if(pstmt != null)
+					pstmt.close();
+				if(conn != null)
+					conn.close();
+			%>
 		</div>
 		<hr>
 	</div>

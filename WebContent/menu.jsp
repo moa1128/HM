@@ -11,19 +11,19 @@
 		            </a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">HEALTH</a>
+					<a class="nav-link" href="./product_health.jsp">HEALTH</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">FOOD</a>
+					<a class="nav-link" href="./product_food.jsp">FOOD</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">LIVING</a>
+					<a class="nav-link" href="./product_living.jsp">LIVING</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">BEAUTY</a>
+					<a class="nav-link" href="./product_beauty.jsp">BEAUTY</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">STYLE</a>
+					<a class="nav-link" href="./product_style.jsp">STYLE</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="javascript:void(0)" style="color: #6c757d">|</a>
@@ -32,7 +32,10 @@
 					<a class="nav-link" href="./addProduct.jsp">ADD</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="./removeProduct.jsp">REMOVE</a>
+					<a class="nav-link" href="./editProduct.jsp?edit=update">EDIT</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="./editProduct.jsp?edit=delete">DELETE</a>
 				</li>
 			</ul>
 		</div>

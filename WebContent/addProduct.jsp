@@ -67,7 +67,7 @@
 			<div class="form-group row">
 				<label class="col-sm-2"><fmt:message key="productImage"/></label>
 				<div class="col-sm-5">
-					<input typ[]e="file" name="productImage" class="form-control">
+					<input type="file" name="productImage" class="form-control">
 				</div>
 			</div>
 			<div class="form-group row">

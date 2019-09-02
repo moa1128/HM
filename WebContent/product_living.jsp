@@ -10,7 +10,7 @@
 	<jsp:include page="menu.jsp"/>
 	<div class="jumbotron">
 		<div class="container">
-			<h1 class="display-3">상품 목록</h1>
+			<h1 class="display-3">LIVING</h1>
 		</div>
 	</div>
 	<div class="container">
@@ -19,7 +19,7 @@
 			<%
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
-				String sql = "select * from product";
+				String sql = "select * from product where category='LIVING'";
 				pstmt = conn.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				while(rs.next()) {
@@ -29,7 +29,7 @@
 				<h3><%=rs.getString("pname")%></h3>
 				<p><%=rs.getString("description")%></p>
 				<p><%=rs.getInt("unitPrice")%>원</p>
-				<p><a href="./product.jsp?id=<%=rs.getString("productId")%>" class="btn btn-secondary" role="button">상세정보 &raquo;</a></p>
+				<p><a href="./product.jsp?id=<%=rs.getString("productId")%>&num=3" class="btn btn-secondary" role="button">상세정보 &raquo;</a></p>
 			</div>
 			<%
 				}

@@ -49,22 +49,3 @@ function CheckAddProduct() {
 	
 	document.newProduct.submit();
 }
-function CheckRemoveProduct() {
-	var productId = document.getElementById("productId");
-	
-	//상품 아이디 체크
-	if(!check(/^P[0-9]{4,11}/, productId, "[상품코드]\nP와 숫자를 조합하여 5~12자까지 입력하세요\n첫 글자는 반드시 P로 시작하세요"))
-			return false;
-	//DB에 있나 확인 후 없는 상품아이디면 false가 되게하기
-	function check(regExp, e, msg) {
-		if(regExp.test(e.value)) {
-			return true;
-		}
-		alert(msg);
-		e.select();
-		e.focus();
-		return false;
-	}
-	
-	document.oldProduct.submit();
-}

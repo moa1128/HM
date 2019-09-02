@@ -5,15 +5,13 @@
 <%@ page import="java.sql.*" %>
 <%@ include file="dbConn.jsp" %>
 <%
-	request.setCharacterEncoding("UTF-8");
-
 	String filename = "";
 	String realFolder = "C:\\upload";	//웹 애플리케이션상의 절대 경로
 	int maxSize = 5 * 1024 *1024;	//최대 업로드될 파일의 크기 5KB
 	String encType = "utf-8";	//인코딩 유형
-
+	
 	MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
-
+	
 	String productId = multi.getParameter("productId");
 	String name = multi.getParameter("name");
 	String unitPrice = multi.getParameter("unitPrice");
@@ -21,16 +19,16 @@
 	String manufacturer = multi.getParameter("manufacturer");
 	String category = multi.getParameter("category");
 	String unitsInStock = multi.getParameter("unitsInStock");
-
+	
 	Integer price;
-
+	
 	if(unitPrice.isEmpty())
 		price = 0;
 	else
 		price = Integer.valueOf(unitPrice);
-
+	
 	int stock;
-
+	
 	if(unitsInStock.isEmpty())
 		stock = 0;
 	else
@@ -39,37 +37,47 @@
 	Enumeration files = multi.getFileNames();
 	String fname = (String) files.nextElement();
 	String fileName = multi.getFilesystemName(fname);
-
-	//DB 넣는 코드 시이작!
-	PreparedStatement pstmt = null;
 	
-	String sql = "insert into product values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	String sql = "select * from product where productId = ?";
 	pstmt = conn.prepareStatement(sql);
 	pstmt.setString(1, productId);
-	pstmt.setString(2, name);
-	pstmt.setInt(3, price);
-	pstmt.setString(4, description);
-	pstmt.setString(5, manufacturer);
-	pstmt.setString(6, category);
-	pstmt.setInt(7, stock);
-	pstmt.setString(8, fileName);
-	pstmt.setInt(9, 0);
-	pstmt.executeUpdate();
+	rs = pstmt.executeQuery();
 	
+	if(rs.next()) {
+		if(fileName != null) {
+			sql = "update product set pname=?, unitPrice=?, description=?, manufacturer=?, category=?, unitsInStock=?, fileName=? where productId=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setInt(2, price);
+			pstmt.setString(3, description);
+			pstmt.setString(4, manufacturer);
+			pstmt.setString(5, category);
+			pstmt.setInt(6, stock);
+			pstmt.setString(7, fileName);
+			pstmt.setString(8, productId);
+			pstmt.executeUpdate();
+		} else {
+			sql = "update product set pname=?, unitPrice=?, description=?, manufacturer=?, category=?, unitsInStock=? where productId=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setInt(2, price);
+			pstmt.setString(3, description);
+			pstmt.setString(4, manufacturer);
+			pstmt.setString(5, category);
+			pstmt.setInt(6, stock);
+			pstmt.setString(7, productId);
+			pstmt.executeUpdate();
+		}
+	}
+	if(rs != null)
+		rs.close();
 	if(pstmt != null)
 		pstmt.close();
 	if(conn != null)
 		conn.close();
-	//
-
-	response.sendRedirect("products.jsp");
+	
+	response.sendRedirect("editProduct.jsp?edit=update");
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Hansung Mart</title>
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-</head>
-<body>
-</body>
-</html>
